@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Terminal, AlertCircle, Calendar } from 'lucide-react';
 import { formatDateToKorean } from '../utils/dateUtils';
+import { CyberCalendarModal } from './CyberCalendarModal';
+import { Todo } from '../types';
 
 interface TodoInputProps {
   selectedDate: string;                                          // 현재 탐색 중인 기준 날짜
   onAddTodo: (text: string, targetDate: string) => void;         // 날짜와 함께 할 일을 등록하는 함수
+  todos?: Todo[];                                                // 달력 모달에 표시할 할 일 목록
 }
 
 /**
- * TodoInput 컴포넌트 (Cyberpunk Neon Edition with Target Date)
+ * TodoInput 컴포넌트 (Cyberpunk Neon Edition with Custom Calendar Modal)
  * 
  * 시니어 개발자의 한마디:
- * 할 일을 등록할 때 목표 날짜(dueDate)를 함께 지정할 수 있습니다.
- * 기본적으로 현재 화면에서 보고 있는 날짜(selectedDate)로 자동 세팅되며,
- * 필요하다면 날짜 선택 버튼을 눌러 다른 날짜(내일, 다음 주 등)로 변경하여 등록할 수도 있습니다.
+ * 브라우저 기본의 밋밋한 날짜 인풋 대신,
+ * 날짜 배지를 클릭하면 아름다운 네온 사이버 달력 모달이 열리도록 개선했습니다.
  */
-export const TodoInput: React.FC<TodoInputProps> = ({ selectedDate, onAddTodo }) => {
+export const TodoInput: React.FC<TodoInputProps> = ({ selectedDate, onAddTodo, todos = [] }) => {
   const [inputText, setInputText] = useState<string>('');
   const [targetDate, setTargetDate] = useState<string>(selectedDate);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 
-  // 사용자가 상단 날짜 탐색기(DateNavigator)에서 다른 날짜를 선택하면, 입력 대상 날짜도 연동해줍니다.
   useEffect(() => {
     setTargetDate(selectedDate);
   }, [selectedDate]);
@@ -35,7 +37,6 @@ export const TodoInput: React.FC<TodoInputProps> = ({ selectedDate, onAddTodo })
       return;
     }
 
-    // 부모 컴포넌트에 할 일 내용과 지정된 날짜를 함께 전달
     onAddTodo(trimmedText, targetDate);
     setInputText('');
     setErrorMessage('');
@@ -74,23 +75,16 @@ export const TodoInput: React.FC<TodoInputProps> = ({ selectedDate, onAddTodo })
             <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-cyan-400 pointer-events-none rounded-tr-sm opacity-60" />
           </div>
 
-          {/* 등록 날짜 지정 버튼 & 날짜 피커 */}
-          <div className="relative group shrink-0">
-            <div className="flex items-center gap-1.5 px-3 py-3 rounded-xl bg-[#0e1026] border border-purple-500/40 text-purple-300 text-xs font-cyber tracking-wider hover:border-purple-400 transition-all">
-              <Calendar className="w-3.5 h-3.5 text-fuchsia-400" />
-              <span>{targetDate}</span>
-            </div>
-            {/* 보이지 않는 날짜 인풋을 덮어씌워 네이티브 달력 팝업 유도 */}
-            <input
-              type="date"
-              value={targetDate}
-              onChange={(e) => {
-                if (e.target.value) setTargetDate(e.target.value);
-              }}
-              className="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10"
-              title="등록할 일정의 날짜 변경"
-            />
-          </div>
+          {/* 등록 날짜 지정 버튼 (클릭 시 커스텀 네온 달력 모달 오픈) */}
+          <button
+            type="button"
+            onClick={() => setIsCalendarOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-3 rounded-xl bg-[#0e1026] border border-purple-500/40 text-purple-300 text-xs font-cyber tracking-wider hover:border-purple-300 hover:shadow-[0_0_12px_rgba(176,38,255,0.4)] transition-all cursor-pointer shrink-0"
+            title="등록할 일정의 날짜 변경 (네온 달력 열기)"
+          >
+            <Calendar className="w-3.5 h-3.5 text-fuchsia-400" />
+            <span>{targetDate}</span>
+          </button>
 
           {/* 네온 전광판 스타일 추가 버튼 */}
           <button
@@ -127,6 +121,16 @@ export const TodoInput: React.FC<TodoInputProps> = ({ selectedDate, onAddTodo })
           <span>{errorMessage}</span>
         </div>
       )}
+
+      {/* 할 일 등록용 커스텀 사이버 달력 모달 */}
+      <CyberCalendarModal
+        isOpen={isCalendarOpen}
+        onClose={() => setIsCalendarOpen(false)}
+        selectedDate={targetDate}
+        onSelectDate={(newDate) => setTargetDate(newDate)}
+        todos={todos}
+        title="TASK SCHEDULER // 등록 목표 일자 지정"
+      />
     </form>
   );
 };

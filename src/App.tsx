@@ -269,12 +269,14 @@ export default function App() {
             dateViewMode={dateViewMode}
             onViewModeToggle={handleViewModeToggle}
             taskCountForSelectedDate={taskCountForSelectedDate}
+            todos={todos}
           />
 
           {/* 3. 할 일 입력 폼 (목표 날짜 지정 가능) */}
           <TodoInput
             selectedDate={selectedDate}
             onAddTodo={handleAddTodo}
+            todos={todos}
           />
 
           {/* 4. 상태 필터 탭 (전체 / 진행 중 / 완료) */}
