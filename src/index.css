@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* 사이버펑크 폰트 패밀리 */
+  .font-cyber {
+    font-family: 'Orbitron', 'Pretendard', sans-serif;
+  }
+  .font-tech {
+    font-family: 'Rajdhani', 'Pretendard', sans-serif;
+  }
+
+  /* 네온 텍스트 글로우 효과 */
+  .neon-text-blue {
+    text-shadow: 0 0 6px rgba(0, 240, 255, 0.8), 0 0 15px rgba(0, 240, 255, 0.5), 0 0 25px rgba(0, 240, 255, 0.3);
+  }
+  .neon-text-pink {
+    text-shadow: 0 0 6px rgba(255, 0, 127, 0.8), 0 0 15px rgba(255, 0, 127, 0.5), 0 0 25px rgba(255, 0, 127, 0.3);
+  }
+  .neon-text-purple {
+    text-shadow: 0 0 6px rgba(176, 38, 255, 0.8), 0 0 15px rgba(176, 38, 255, 0.5), 0 0 25px rgba(176, 38, 255, 0.3);
+  }
+
+  /* 네온 박스 및 보더 글로우 효과 */
+  .neon-box-blue {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.08);
+  }
+  .neon-box-pink {
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.3), inset 0 0 15px rgba(255, 0, 127, 0.1);
+  }
+  .neon-box-purple {
+    box-shadow: 0 0 18px rgba(176, 38, 255, 0.3), inset 0 0 18px rgba(176, 38, 255, 0.1);
+  }
+  .neon-box-cyber {
+    box-shadow: 0 0 25px rgba(176, 38, 255, 0.15), 0 0 15px rgba(0, 240, 255, 0.15);
+  }
+}
+
+/* 사이버펑크 미래도시 홀로그램 격자 배경 */
+.cyber-grid-bg {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 0, 127, 0.04) 1px, transparent 1px);
+}
+
+/* CRT 모니터/전광판 느낌의 미세한 스캔라인 오버레이 */
+.cyber-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+}
+

@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /todos/{todoId} {
+      // 투두리스트 항목에 대해 조회, 생성, 수정, 삭제를 허용합니다.
+      allow read, write: if true;
+    }
+  }
+}

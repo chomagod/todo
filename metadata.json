@@ -1,0 +1,6 @@
+{
+  "name": "Todo List",
+  "description": "React, Tailwind CSS, 그리고 Firebase Firestore를 사용하여 실시간 클라우드 동기화와 날짜별 일정 관리를 지원하는 반응형 사이버펑크 네온 Todo List 웹앱입니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

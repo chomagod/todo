@@ -1,0 +1,38 @@
+{
+  "entities": {
+    "todos": {
+      "title": "Todos",
+      "description": "User todo tasks with due dates, completion status, and creation timestamps",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The task content"
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Completion status of the task"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Formatted time when the task was created"
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Scheduled target date in YYYY-MM-DD format"
+        },
+        "createdAtTimestamp": {
+          "type": "number",
+          "description": "Epoch timestamp in milliseconds for reliable ordering"
+        }
+      },
+      "required": ["text", "completed", "dueDate"]
+    }
+  },
+  "firestore": {
+    "/todos/{todoId}": {
+      "schema": "todos",
+      "description": "Global collection of todo items for the application"
+    }
+  }
+}
